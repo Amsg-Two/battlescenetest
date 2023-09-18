@@ -36,24 +36,30 @@ function on_input(self, action_id, action)
 		elseif selected == 1 then
 			sound.play("menuAudio#bonk")
 		elseif selected == 2 then
+			sound.play("menuAudio#select")
 			selected = 0
 		elseif selected == 3 then
+			sound.play("menuAudio#select")
 			selected = 1
 		end
 	elseif action_id == hash("key_a") and action.pressed or action_id == hash("key_left") and action.pressed then
 		if selected == 0 then
 			sound.play("menuAudio#bonk")
 		elseif selected == 1 then
+			sound.play("menuAudio#select")
 			selected = 0
 		elseif selected == 2 then
 			sound.play("menuAudio#bonk")
 		elseif selected == 3 then
+			sound.play("menuAudio#select")
 			selected = 2
 		end
 	elseif action_id == hash("key_s") and action.pressed or action_id == hash("key_down") and action.pressed then
 		if selected == 0 then
+			sound.play("menuAudio#select")
 			selected = 2
 		elseif selected == 1 then
+			sound.play("menuAudio#select")
 			selected = 3
 		elseif selected == 2 then
 			sound.play("menuAudio#bonk")
@@ -62,10 +68,12 @@ function on_input(self, action_id, action)
 		end
 	elseif action_id == hash("key_d") and action.pressed or action_id == hash("key_right") and action.pressed then
 		if selected == 0 then
+			sound.play("menuAudio#select")
 			selected = 1
 		elseif selected == 1 then
 			sound.play("menuAudio#bonk")
 		elseif selected == 2 then
+			sound.play("menuAudio#select")
 			selected = 3
 		elseif selected == 3 then
 			sound.play("menuAudio#bonk")
