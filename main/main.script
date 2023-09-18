@@ -31,48 +31,67 @@ function on_input(self, action_id, action)
 		--print("Logic goes here!")
 	--end
 	if action_id == hash("key_w") and action.pressed or action_id == hash("key_up") and action.pressed then
-		print("Up was pressed")
 		if selected == 0 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 1 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 2 then
 			selected = 0
 		elseif selected == 3 then
 			selected = 1
 		end
 	elseif action_id == hash("key_a") and action.pressed or action_id == hash("key_left") and action.pressed then
-		print("Left was pressed")
 		if selected == 0 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 1 then
 			selected = 0
 		elseif selected == 2 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 3 then
 			selected = 2
 		end
 	elseif action_id == hash("key_s") and action.pressed or action_id == hash("key_down") and action.pressed then
-		print("Down was pressed")
 		if selected == 0 then
 			selected = 2
 		elseif selected == 1 then
 			selected = 3
 		elseif selected == 2 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 3 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		end
 	elseif action_id == hash("key_d") and action.pressed or action_id == hash("key_right") and action.pressed then
-		print("Right was pressed")
 		if selected == 0 then
 			selected = 1
 		elseif selected == 1 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		elseif selected == 2 then
 			selected = 3
 		elseif selected == 3 then
-			--bonk
+			sound.play("menuAudio#bonk")
 		end
+	elseif action_id == hash("key_x") and action.pressed or action_id == hash("key_enter") and action.pressed then
+		sound.play("menuAudio#select")
+		if selected == 0 then
+			print("Player selected Silly Option Number 1!")
+		elseif selected == 1 then
+			print("Player selected Serious Option Number 2.")
+		elseif selected == 2 then
+			print("Player selected Quirky Option Number 3! :3c")
+		elseif selected == 3 then
+			print("Player is Makoto Yuki and they do not care.")
+			local v = math.random(0,2)
+			if v == 1 then
+				sound.play("menuAudio#original_knk")
+			else 
+				sound.play("menuAudio#siiva_knk")
+			end
+		end
+	elseif action_id == hash("key_z") and action.pressed then
+		print("Stopping all audio.")
+		sound.stop("menuAudio#bonk")
+		sound.stop("menuAudio#select")
+		sound.stop("menuAudio#original_knk")
+		sound.stop("menuAudio#siiva_knk")
 	end
 end

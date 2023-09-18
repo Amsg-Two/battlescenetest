@@ -1,9 +1,9 @@
 images {
-  image: "/assets/texture/arrow_01.png"
+  image: "/assets/source/texture/arrow_01.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/texture/background.png"
+  image: "/assets/source/texture/background.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0
