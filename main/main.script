@@ -27,15 +27,52 @@ function update(self, dt)
 end
 
 function on_input(self, action_id, action)
-	--[[if action_id == hash("input key from input/game.input_binding") and action.pressed then
-	print("Logic goes here!")
-end--]]
-if action_id == hash("key_a") or action_id == hash("key_left") and action.pressed then
+	--if action_id == hash("input key from input/game.input_binding") and action.pressed then
+		--print("Logic goes here!")
+	--end
+	if action_id == hash("key_w") and action.pressed or action_id == hash("key_up") and action.pressed then
+		print("Up was pressed")
+		if selected == 0 then
+			--bonk
+		elseif selected == 1 then
+			--bonk
+		elseif selected == 2 then
+			selected = 0
+		elseif selected == 3 then
+			selected = 1
+		end
+	elseif action_id == hash("key_a") and action.pressed or action_id == hash("key_left") and action.pressed then
 		print("Left was pressed")
 		if selected == 0 then
 			--bonk
+		elseif selected == 1 then
+			selected = 0
+		elseif selected == 2 then
+			--bonk
+		elseif selected == 3 then
+			selected = 2
 		end
-			
+	elseif action_id == hash("key_s") and action.pressed or action_id == hash("key_down") and action.pressed then
+		print("Down was pressed")
+		if selected == 0 then
+			selected = 2
+		elseif selected == 1 then
+			selected = 3
+		elseif selected == 2 then
+			--bonk
+		elseif selected == 3 then
+			--bonk
+		end
+	elseif action_id == hash("key_d") and action.pressed or action_id == hash("key_right") and action.pressed then
+		print("Right was pressed")
+		if selected == 0 then
+			selected = 1
+		elseif selected == 1 then
+			--bonk
+		elseif selected == 2 then
+			selected = 3
+		elseif selected == 3 then
+			--bonk
+		end
 	end
-	
 end
