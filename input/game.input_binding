@@ -3,10 +3,6 @@ key_trigger {
   action: "key_space"
 }
 key_trigger {
-  input: KEY_EXCLAIM
-  action: "key_exclamationmark"
-}
-key_trigger {
   input: KEY_QUOTEDBL
   action: "key_doublequote"
 }
@@ -508,7 +504,7 @@ mouse_trigger {
 }
 mouse_trigger {
   input: MOUSE_BUTTON_LEFT
-  action: "mouse_button_left"
+  action: "click"
 }
 mouse_trigger {
   input: MOUSE_BUTTON_MIDDLE
@@ -665,10 +661,6 @@ gamepad_trigger {
 touch_trigger {
   input: TOUCH_MULTI
   action: "touch_multi"
-}
-text_trigger {
-  input: TEXT
-  action: "text"
 }
 text_trigger {
   input: MARKED_TEXT

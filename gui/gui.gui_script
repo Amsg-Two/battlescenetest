@@ -1,0 +1,54 @@
+function init(self)
+	-- Add initialization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	print(message_id .. " was sent to self.")
+	if message_id == hash("light") then
+		msg.post("menu:/lightmove#lightmove","load")
+		print("light was sent")
+	end
+	if message_id == hash("heavy") then
+		msg.post("menu:/heavymove#heavymove","load")
+		print("heavy was sent")
+		 
+	end
+end
+
+function on_input(self, action_id, action)
+	if(action_id == hash("click") and action.pressed) then
+		print("button was pressed")
+		local light = gui.get_node("light")
+		if(gui.pick_node(light,action.x,action.y)) then 
+			msg.post(self, "light")
+			print("light was hit")
+		end
+	end
+	if(action_id == hash("click") and action.pressed) then
+		local heavy = gui.get_node("heavy")
+		if(gui.pick_node(heavy,action.x,action.y)) then 
+			msg.post(self, "heavy")
+			print("heavy was hit")
+		end
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
