@@ -23,11 +23,12 @@ end
 function on_message(self, message_id, message, sender)
 	print(message_id .. " was sent to self.")
 	if message_id == hash("light") then
-		msg.post("lightmove:/lightmove#light","load")
+		msg.post("lightmove#light","load")
 		print("light was sent")
 	end
 	if message_id == hash("heavy") then
-		msg.post("heavymove:/heavymove#heavy","load")
+		print("heavy")
+		msg.post("proxy:/proxyobj#proxyscript","heavy")
 		print("heavy was sent")
 		 
 	end

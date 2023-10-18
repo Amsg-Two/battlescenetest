@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /gui/gui.collectionc
+main_collection = /gui/proxy.collectionc
 
 [script]
 shared_state = 1
