@@ -27,7 +27,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("load") then
-		msg.post("heavymove#heavy", "load")
+		print("heavy has been selected and message has been received")
 		msg.post("heavymove#heavy", "enable")
 	end
 	if message_id == hash("delete") then
