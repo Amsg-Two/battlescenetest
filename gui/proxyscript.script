@@ -1,14 +1,12 @@
 local function show(self, proxy) -- <5>
-	print("show recived")
 	msg.post(proxy, "async_load") -- <8>
 end
 
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	print("aquired input focus")
 	self.current_proxy = nil -- <2>
 	msg.post("#", "show_menu") -- <3>
-	print("show menu")
 end
 
 
@@ -35,15 +33,34 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("show_menu") then
-		print("message recived")
 		show(self, "#guiproxy")
 	elseif message_id == hash("proxy_loaded") then
 		self.current_proxy = sender
 		msg.post(sender, "enable") 
 
 	elseif message_id == hash("heavy") then
-		print("heavy was recivged")
 		show(self,"#heavymove")
+		heavy=true
+	elseif message_id == hash("light") then
+		show(self,"#lightmove")
+		light =true
+	elseif message_id == hash("light unload") then
+		msg.post("#lightmove", "unload")
+		light = false
+	elseif message_id == hash("heavy unload") then
+		msg.post("#heavymove", "unload")
+		heavy = false
+	elseif message_id == hash("run light") then
+		print("got run")
+		if light == true then
+			msg.post("gui:/gui#gui", "light damage")
+			msg.post("#", "light unload")
+		end
+	elseif message_id == hash("run heavy") then
+		if heavy == true then
+			msg.post("gui:/gui#gui", "heavy damage")
+			msg.post("#", "heavy unload")
+		end
 	end
 end
 

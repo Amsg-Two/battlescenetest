@@ -1,5 +1,5 @@
 function init(self)
-	-- Add initialization code here
+	msg.post(".", "acquire_input_focus")
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 end
@@ -17,25 +17,18 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("load") then
-		print("heavy has been selected and message has been received")
-		msg.post("heavymove#heavy", "enable")
-	end
 	if message_id == hash("delete") then
-		go.delete()
+		msg.post("proxy:/proxyobj#proxyscript","heavy unload")
 	end
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
+	if(action_id == hash("click") and action.pressed) then
+		local heavy = gui.get_node("heavy")
+		if(gui.pick_node(heavy,action.x,action.y)) then 
+			msg.post("#", "delete")
+		end
+	end
 end
 
 function on_reload(self)

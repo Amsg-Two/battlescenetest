@@ -44,7 +44,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "heavy"
   font: "system_font"
-  id: "heavymove"
+  id: "heavy"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER

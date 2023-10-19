@@ -19,35 +19,46 @@ function update(self, dt)
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 end
-
+score = 0
+set = 0
 function on_message(self, message_id, message, sender)
-	print(message_id .. " was sent to self.")
+	if message_id == hash("light damage") then
+		score = score + 10
+		print("light damage")
+	end
+	if message_id == hash("heavy damage") then
+		score = score + 20 
+		print("heavy damage")
+	end
 	if message_id == hash("light") then
-		msg.post("lightmove#light","load")
-		print("light was sent")
-	end
-	if message_id == hash("heavy") then
-		print("heavy")
+		msg.post("proxy:/proxyobj#proxyscript","light")
+	elseif message_id == hash("heavy") then
 		msg.post("proxy:/proxyobj#proxyscript","heavy")
-		print("heavy was sent")
-		 
 	end
+	gui.set_text(gui.get_node("score"), score)
 end
 
 function on_input(self, action_id, action)
 	if(action_id == hash("click") and action.pressed) then
-		print("button was pressed")
 		local light = gui.get_node("light")
 		if(gui.pick_node(light,action.x,action.y)) then 
 			msg.post("#", "light")
-			print("light was hit")
 		end
 	end
 	if(action_id == hash("click") and action.pressed) then
 		local heavy = gui.get_node("heavy")
 		if(gui.pick_node(heavy,action.x,action.y)) then 
 			msg.post("#", "heavy")
-			print("heavy was hit")
+		end
+	end
+	if(action_id == hash("click") and action.pressed) then
+		local run = gui.get_node("run")
+		if(gui.pick_node(run,action.x,action.y)) then 
+			print("run hit")
+			score = 0
+			gui.set_text(gui.get_node("score"), score)
+			msg.post("proxy:/proxyobj#proxyscript","run light")
+			msg.post("proxy:/proxyobj#proxyscript","run heavy")
 		end
 	end
 end

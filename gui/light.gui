@@ -1,4 +1,4 @@
-script: ""
+script: "/gui/light.gui_script"
 fonts {
   name: "system_font"
   font: "/builtins/fonts/system_font.font"
@@ -44,7 +44,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "light"
   font: "system_font"
-  id: "lightmove"
+  id: "light"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
