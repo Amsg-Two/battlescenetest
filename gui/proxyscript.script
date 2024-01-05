@@ -1,5 +1,25 @@
+actions = {
+	"wait",
+	"attack",
+	"exec" ,
+	"enemy",
+	"check",
+	"help",
+	"remove",
+	"clear",
+	"init",
+	"utilities"
+
+}
+
 local function show(self, proxy) -- <5>
 	msg.post(proxy, "async_load") -- <8>
+end
+function pushing_back(l , k)
+	print(l)
+	print("proxy:/" .."instance" .. order[l][1] .. "#heavyfac")
+	msg.post("proxy:/" .."instance" .. order[l][1] .. "#heavyfac", "move", {order[l][2]})
+	msg.post("#", "do", {order[l][2]})
 end
 
 
@@ -30,36 +50,95 @@ function fixed_update(self, dt)
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 end
-
+another = {}
+num = 0
+move = 0
+order = {}
+gui = 0
 function on_message(self, message_id, message, sender)
+	if message_id == hash("unload") then
+		move = move - 1
+	end
 	if message_id == hash("show_menu") then
-		show(self, "#guiproxy")
-	elseif message_id == hash("proxy_loaded") then
-		self.current_proxy = sender
-		msg.post(sender, "enable") 
-
-	elseif message_id == hash("heavy") then
-		show(self,"#heavymove")
-		heavy=true
-	elseif message_id == hash("light") then
-		show(self,"#lightmove")
-		light =true
-	elseif message_id == hash("light unload") then
-		msg.post("#lightmove", "unload")
-		light = false
-	elseif message_id == hash("heavy unload") then
-		msg.post("#heavymove", "unload")
-		heavy = false
-	elseif message_id == hash("run light") then
-		print("got run")
-		if light == true then
-			msg.post("gui:/gui#gui", "light damage")
-			msg.post("#", "light unload")
+		show(self, "#background") 
+		for i = 1, #actions do
+			local y_pos = 600 - 50*gui
+			local fact = factory.create("#gui", vmath.vector3(50,y_pos,0))
+			print(fact)
+			gui = gui + 1
+			msg.post(fact,"name", {actions[i]})
+			local numb = string.sub(tostring(fact), 17,17)
+			local thin = string.sub(tostring(fact), 18,18)
+			local t = tonumber(thin)
+			if type(t) == "number" then
+				l = tostring(numb) .. tostring(thin)
+				table.insert(another, {l, actions[i]})
+			else
+				table.insert(another, {numb, actions[i]})
+			end 
 		end
-	elseif message_id == hash("run heavy") then
-		if heavy == true then
-			msg.post("gui:/gui#gui", "heavy damage")
-			msg.post("#", "heavy unload")
+	end
+	if message_id == hash("do") then
+		y_pos = 500 - 100*move
+		print(sender)
+		local w = message[1]
+		print(w)
+		local e = string.sub(tostring(sender), 22,22)
+		local y = string.sub(tostring(sender), 24,24)
+		local fact = factory.create("#heavy", vmath.vector3(860,y_pos,0))
+		local numb = string.sub(tostring(fact), 17,17)
+		local thin = string.sub(tostring(fact), 18,18)
+		local t = tonumber(thin)
+		l = tostring(numb) .. tostring(thin)
+		if y == "g" then
+			table.insert(order, {l, another[e + 1][2]})
+			q = tostring(another[e  + 1][2])
+		else
+			table.insert(order, {l, w})
+			q = w
+		end 
+		print(q)
+		msg.post(fact, "name", {q})
+		move = move + 1
+	end
+	if message_id == hash("heavy unload") then
+		for i = 1, #order do
+			print(#order)
+			print(sender)
+			print(i)
+			if order[i]==nil then
+				break 
+			end
+			if tostring(sender) == "url: [".."proxy:/" .."instance" .. order[i][1] .. "#heavyfac".."]" then 
+				table.remove(order, i)
+				print(#order)
+				for l = i,#order do
+					msg.post("#", "unload")
+				end
+				for l = i,#order do
+					pushing_back(l)
+				end
+				for k = i,#order do
+					table.remove(order, i)
+				end
+			end
+			
+		end
+		move = move - 1
+		print("done")
+	end
+	if message_id == hash("calc") then
+		print("got run")
+		for i = 1, #order do
+			print("got")
+			msg.post("gui:/gui#gui", order[i][2])
+			msg.post("proxy:/" .."instance" .. order[i][1] .. "#heavyfac", "reset")
+			move = 0
+			print(#order)
+		end
+		for p = 0, #order do
+			table.remove(order, 1)
+			print(#order)
 		end
 	end
 end
